@@ -93,8 +93,8 @@ Gain_db = 5 ;
 Gain = 10^( Gain_db / 20 );
 Gain_total = 1 * k_2 * k_3 ; 
 a = Gain / Gain_total ;
-Z_2 = R_k_31 / a;
-Z_3 = R_k_31 / (1-a);
+Z_2 = R_21 / a;
+Z_3 = R_21 / (1-a);
 
 % sinartisis metaforas
 f_p_hz = f_p *1000;
