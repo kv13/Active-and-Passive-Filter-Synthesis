@@ -13,6 +13,15 @@ f_4 = f_0^2 / f_3;
 a_min = 30 - AEM(3);
 a_max = 0.5 + AEM(4)/18;
 
+%%ektipwsi sixnotitwn f
+fprintf('-----------------------------------------------------------------\n');
+fprintf('f0 = %d \n',f_0);
+fprintf('f1 = %d \n',f_1);
+fprintf('f2 = %d \n',f_2);
+fprintf('f3 = %d \n',f_3);
+fprintf('f4 = %d \n',f_4);
+fprintf('-----------------------------------------------------------------\n');
+
 
 w_0 = 2 * pi * f_0;
 w_1 = 2 * pi * f_1;
@@ -26,6 +35,19 @@ W_s = (w_2 - w_1) / (w_4 - w_3);
 
 W_s_k = 1;
 W_p_k = 1 / W_s ; 
+%ektipwsi kiklikwn sixnotitwn
+fprintf('-----------------------------------------------------------------\n');
+fprintf('w0 = %d \n',w_0);
+fprintf('w1 = %d \n',w_1);
+fprintf('w2 = %d \n',w_2);
+fprintf('w3 = %d \n',w_3);
+fprintf('w4 = %d \n',w_4);
+fprintf('Wp = %d \n',W_p);
+fprintf('Ws = %d \n',W_s);
+fprintf('kanonikopoiisi :\n');
+fprintf('W_p_k = %d \n',W_p_k);
+fprintf('W_s_k = %d \n',W_s_k);
+fprintf('-----------------------------------------------------------------\n');
 
 %taksi filtrou
 n = acosh(((10^(a_min/10)-1)/(10^(a_max/10)-1))^(1/2)) / acosh(1/W_p_k);
@@ -37,6 +59,19 @@ a = asinh(1/e)/n;
 %sixnotita imisias isxuos 
 w_hp = 1 / cosh(1/n * acosh(1/e)); 
 
+
+%ektiposi upoloipwn stoixeiwn
+fprintf('-----------------------------------------------------------------\n');
+fprintf('D = %d \n',D);
+fprintf('amin = %d \n',a_min);
+fprintf('amax = %d \n',a_max);
+fprintf('bw = %d \n',bw);
+fprintf('w4 = %d \n',w_4);
+fprintf('n = %d \n',n);
+fprintf('e = %d \n',e);
+fprintf('a = %d \n',a);
+fprintf('whp = %d \n',w_hp);
+fprintf('-----------------------------------------------------------------\n');
 
 %poloi kai midenika sinartisis metaforas kai Q rizwn
 
@@ -66,7 +101,6 @@ end
 Wz(1) = sec(1*pi/(2*n));
 Wz(2) = sec(3*pi/(2*n));
 Wz(3) = sec(5*pi/(2*n));
-Wz(3)
 
 %klimakopoiisi midenikwn
 WWz(1) = Wz(1) * W_s;
@@ -84,7 +118,33 @@ for i = 1:length(y)
     IWWz(i) = 1 / WWz(i) ;
     
 end
+fprintf('-----------------------CHEBYSHEV POLES---------------------------\n');
+for i=1:3
+    fprintf('%d +- i%d ===> W = %d , Q = %d \n ',poles_chebyshev_real(i) , poles_chebyshev_imag(i),W(i),Q(i));
+    
+end
+fprintf('-----------------------------------------------------------------\n');
+fprintf('\n \n');
+fprintf('-----------------------In.CHEBYSHEV POLES------------------------\n');
+fprintf('InW = 1/W , InQ = Q\n');
+for i=1:3
+    fprintf('xwris klimakopoiisi: W = %d , Q = %d \n',WICH(i),QICH(i));
+    fprintf('me klimakopoiisi Ws: W = %d , Q = %d \n',WWICH(i),WQICH(i));
+end
+fprintf('-----------------------------------------------------------------\n');
+fprintf('--------------------------MIDENIKA-------------------------------\n');
+for i=1:3
+    fprintf('xwris klimakopoiisi: Wz = %d  \n',Wz(i));
+    fprintf('me klimakopoiisi Ws: Wz = %d  \n',WWz(i));
+end
+fprintf('-----------------------------------------------------------------\n');
 
+fprintf('----------------------Metatropi LP =>HP--------------------------\n');
+for i=1:3
+    fprintf('polos: %d +- i%d , Q=%d \n',S(i),P(i),WQICH(i));
+    fprintf('mideniko: Wz = %d\n',IWWz(i));
+end
+fprintf('-----------------------------------------------------------------\n');
 %GEFFE ALGORITHM 
 
 %metasximatismos polwn
@@ -125,7 +185,20 @@ for i=1:3
    Wzo(temp) = w_0 / sqrt(X);
    temp = temp + 1 ;
 end
-
+fprintf('------------------------BAND ELIMINATION-------------------------\n');
+temp = 1;
+for i=1:3
+    fprintf('polos: Wo = %d , Q =%d \n',Wo(temp),QQ(i));
+    fprintf('mideniko Wz = %d \n', Wzo(6-temp));
+    temp = temp +1;
+    if (i>1)
+        fprintf('polos: Wo = %d , Q =%d \n',Wo(temp),QQ(i));
+        fprintf('mideniko Wz = %d \n', Wzo(6-temp));
+        temp = temp+1;
+    end
+    
+end
+fprintf('-----------------------------------------------------------------\n');
 
 
 %%%
