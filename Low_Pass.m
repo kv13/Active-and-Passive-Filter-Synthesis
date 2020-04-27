@@ -89,7 +89,7 @@ r_31 = r_k_31 * k_m;
 r_32 = r_k_32 * k_m;
 
 %Rithimisi Kerdous
-Gain_db = 5 ;
+Gain_db = 0 ;
 Gain = 10^( Gain_db / 20 );
 Gain_total = 1 * k_2 * k_3 ; 
 a = Gain / Gain_total ;
