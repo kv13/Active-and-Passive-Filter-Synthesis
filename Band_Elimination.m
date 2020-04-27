@@ -19,7 +19,7 @@ w_1 = 2 * pi * f_1;
 w_2 = 2 * pi * f_2;
 w_3 = 2 * pi * f_3;
 w_4 = 2 * pi * f_4;
-
+bw  = w_2 - w_1;
 
 W_p = 1;
 W_s = (w_2 - w_1) / (w_4 - w_3);
@@ -87,9 +87,50 @@ end
 
 %GEFFE ALGORITHM 
 
+%metasximatismos polwn
+temp = 1;
+qc = w_0 / bw ;
+for i = 1:length(y)
+   if(P(i) == 0 )
+       SS(i) = abs(S(i));
+       Wo(temp) = w_0;
+       temp = temp + 1;
+       QQ(i) = qc / SS(i);
+   else
+       SS(i) = abs(S(i));
+       WW(i) = abs(P(i));
+       
+       C = SS(i)^2 + WW(i)^2;
+       D = 2 * SS(i) / qc; 
+       E = 4 + C / qc^2;
+       G = sqrt(E^2 - 4 * D^2);
+       QQ(i) = 1/D * sqrt(1/2 * ( E + G));
+       K = SS(i) * QQ(i) / qc;
+       W = K + sqrt ( K^2 - 1 ) ;
+       Wo(temp) = W * w_0;
+       temp = temp + 1 ;
+       Wo(temp) = 1/W * w_0;
+       temp = temp + 1;
+   end
+   
+end
+
+%metasximatismos midenikwn 
+temp = 1;
+for i=1:3
+   K = 2 + IWWz(i)^2 / qc^2 ;  
+   X = ( K + sqrt( K ^2 -4)) / 2;
+   Wzo(temp) = w_0 * sqrt(X);
+   temp = temp + 1; 
+   Wzo(temp) = w_0 / sqrt(X);
+   temp = temp + 1 ;
+end
 
 
 
+%%%
+%%%To display use fprintf('%s will be %d \n',name , age);
+%%%
 
 end
 
