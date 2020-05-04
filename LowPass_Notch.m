@@ -1,4 +1,4 @@
-function [R1 , R2 , R3 , R4 , R5 , C, K] = LowPass_Notch(w0 , wz , Q)
+function [K , numerator , denumerator] = LowPass_Notch(w0 , wz , Q)
 %temporary values
 wt0 = w0/w0;
 wtz = wz/w0;
@@ -22,6 +22,8 @@ R4 = R4 * k_m;
 R5 = R5 * k_m;
 C= 0.1;
 
+numerator   = [K 0 K*wz^2];
+denumerator = [1 w0/Q w0^2];  
 
 
 end
