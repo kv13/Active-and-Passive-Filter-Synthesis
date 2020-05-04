@@ -225,7 +225,6 @@ fprintf('MONADA 5 Wo = %d , Q = %d , Wz = %d \n',Wo(5),QQ(3),Wzo(2));
 Transferfunction5 = tf(num5 , den5);
 plot_transfer_function( Transferfunction5, [f_1 f_3 f_0 f_4 f_2] );
 
-%total transfer function 
 %Total Transfer Function
 Total1 = series(Transferfunction1,Transferfunction2);
 Total2 = series(Total1, Transferfunction3); 
