@@ -1,5 +1,4 @@
 function [] = Band_Elimination()
-
 AEM = [8 5 0 8];
 
 %prodiagrafes
@@ -199,11 +198,39 @@ for i=1:3
     
 end
 fprintf('-----------------------------------------------------------------\n');
+fprintf('---------------------------MONADES-------------------------------\n');
+%gia tis monades isxuei oti an Wo>=Wz => HPN an Wo<Wz => LPN
+fprintf('MONADA 1 Wo = %d , Q = %d , Wz = %d \n',Wo(1),QQ(1),Wzo(5));
+[GAIN(1) , num1 , den1 ] = HighPass_Notch(Wo(1), Wzo(5), QQ(1));
+Transferfunction1 = tf(num1 , den1);
+plot_transfer_function( Transferfunction1, [f_1 f_3 f_0 f_4 f_2] );
 
+fprintf('MONADA 2 Wo = %d , Q = %d , Wz = %d \n',Wo(2),QQ(2),Wzo(3));
+[GAIN(2) , num2 , den2] = HighPass_Notch(Wo(2) , Wzo(3) , QQ(2));
+Transferfunction2 = tf(num2 , den2);
+plot_transfer_function( Transferfunction2, [f_1 f_3 f_0 f_4 f_2] );
 
-%%%
-%%%To display use fprintf('%s will be %d \n',name , age);
-%%%
+fprintf('MONADA 3 Wo = %d , Q = %d , Wz = %d \n',Wo(3),QQ(2),Wzo(4));
+[GAIN(3) , num3 , den3] = LowPass_Notch(Wo(3) , Wzo(4) , QQ(2));
+Transferfunction3 = tf(num3 , den3);
+plot_transfer_function( Transferfunction3, [f_1 f_3 f_0 f_4 f_2] );
 
+fprintf('MONADA 4 Wo = %d , Q = %d , Wz = %d \n',Wo(4),QQ(3),Wzo(1));
+[GAIN(4) , num4 , den4] = HighPass_Notch( Wo(4) , Wzo(1) , QQ(3));
+Transferfunction4 = tf(num4 , den4);
+plot_transfer_function( Transferfunction4, [f_1 f_3 f_0 f_4 f_2] );
+
+fprintf('MONADA 5 Wo = %d , Q = %d , Wz = %d \n',Wo(5),QQ(3),Wzo(2));
+[GAIN(5) , num5 , den5] = LowPass_Notch(Wo(5) , Wzo(2) , QQ(3));
+Transferfunction5 = tf(num5 , den5);
+plot_transfer_function( Transferfunction5, [f_1 f_3 f_0 f_4 f_2] );
+
+%total transfer function 
+%Total Transfer Function
+Total1 = series(Transferfunction1,Transferfunction2);
+Total2 = series(Total1, Transferfunction3); 
+Total3 = series(Total2, Transferfunction4);
+Total  = series(Total3, Transferfunction5);
+plot_transfer_function(Total , [f_1 f_3 f_0 f_4 f_2] );
 end
 
