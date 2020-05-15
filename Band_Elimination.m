@@ -231,5 +231,33 @@ Total2 = series(Total1, Transferfunction3);
 Total3 = series(Total2, Transferfunction4);
 Total  = series(Total3, Transferfunction5);
 plot_transfer_function(Total , [f_1 f_3 f_0 f_4 f_2] );
+
+%rithmisi kerdous 
+%apo tin ekfonisi tis ergasias exw GAIN OdB 
+Gain_db = 0;
+Gain    = 10^(Gain_db/20);
+
+Gain_Unit1 = GAIN(1) * (Wzo(5)/Wo(1))^2;
+Gain_Unit2 = GAIN(2) * (Wzo(3)/Wo(2))^2;
+Gain_Unit3 = GAIN(3) * (Wzo(4)/Wo(3))^2;
+Gain_Unit4 = GAIN(4) * (Wzo(1)/Wo(4))^2;
+Gain_Unit5 = GAIN(5) * (Wzo(2)/Wo(5))^2;
+
+Total_LowGain = Gain_Unit1 * Gain_Unit2 * Gain_Unit3 *Gain_Unit4 * Gain_Unit5;
+a = Gain/Total_LowGain ; 
+R1_G = 10000; %why 10000????
+R2_G = a* R1_G ; 
+Total_Gain = -(R2_G/R1_G);
+
+TotalG = Total_Gain *Total ;
+plot_transfer_function(TotalG , [f_1 f_3 f_0 f_4 f_2] );
+%Aposvesi
+Total_Aposvesi = inv(TotalG);
+plot_transfer_function(Total_Aposvesi , [f_1 f_3 f_0 f_4 f_2]);
+
+%SIMULATION of the filter 
+Band_Elimination_Simulation(w_0 , w_1 , w_2 ,w_3 ,w_4);
+
+
 end
 
