@@ -55,35 +55,6 @@ elseif(dec==2)
     numerator= [ -(2*Q*W) 0 ];%maybe this is wrong
     denumerator = [ 1 W/Q W^2];
 end
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 end
 
